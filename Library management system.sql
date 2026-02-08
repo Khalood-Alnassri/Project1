@@ -102,6 +102,15 @@ alter table loan
 alter table Member
     alter  COLUMN Email nvarchar (255)
 
+alter table Library
+    add UNIQUE (Lib_name)
+
+alter table Book
+    add UNIQUE (ISBN)
+
+alter table Member 
+    add UNIQUE (Email)
+
 Delete from Book
 
 --use SELECT to Retrieving All Data
@@ -259,7 +268,7 @@ select * from Book where Genre = 'Fiction' AND Avilability = 'True';
 
 select * from Book where Genre = 'Fiction' OR Genre = 'Children';
 
-select * from Library where YEAR (Stablish_year) > 2010 AND Location = 'California';
+select * from Library where YEAR (Stablish_year) < 2010 AND Location = 'Dammam';
 
 select * from Book where Price >= 10 AND Price <= 30;
 
@@ -278,3 +287,61 @@ select * from Library ORDER BY Stablish_year ASC;
 select * from Reviw ORDER BY Rating DESC;
 
 select * from Reviw ORDER BY Review_date ASC;
+
+--DISTINCT Keyword
+
+select DISTINCT Genre from Book ORDER BY Genre ASC; 
+
+select DISTINCT Location from Library ORDER BY Location ASC; 
+
+select DISTINCT Position from Staff ORDER BY Position ASC; 
+
+select DISTINCT Status from loan ORDER BY Status ASC; 
+
+--TOP/LIMIT Clause
+
+select TOP 5 * from Book ORDER BY Price DESC;
+
+select TOP 10 * from Member ORDER BY mem_ship_start ASC;
+
+select TOP 3 * from Library ORDER BY Stablish_year ASC;
+
+select TOP 5 * from Reviw ORDER BY Rating DESC;
+
+--LIKE Operator for Pattern Matching
+
+select * from Book where Title LIKE 'The %';
+
+select * from Member where Email LIKE '%email.com%';
+
+select * from Library where Lib_name like '%Innovation';
+
+select * from Book where Title LIKE '%Adventure%';
+
+select * from Staff where Fname LIKE 'J%';
+
+--Working with NULL Values
+
+select * from loan where Return_date IS NULL;
+
+select * from loan where Return_date IS NOT NULL;
+
+select * from Reviw where Comment IS NULL OR Comment = 'No comments';
+
+--Complex Combined Queries
+
+select * from Book where Genre = 'Fiction' AND Avilability = 'TRUE' AND Price < 100 ORDER BY Price ASC;
+
+select TOP 5 * from loan where Status = 'Overdue' ORDER BY Due_date DESC;
+
+select * from Library where ( Location = 'Makkah' OR Location = ' Najran') AND year (Stablish_year) > 2005 ORDER BY Lib_name;
+
+select * from Book where (Genre = 'Fiction' OR Genre = 'Children') AND Price between 10 AND 30 AND Avilability = 'TRUE';
+
+select * from Member where ( year (mem_ship_start) >= 2019 AND year (mem_ship_start) < 2023) AND Email LIKE '%@email.com' ORDER BY mem_ship_start ASC;
+
+--Challenge Queries
+
+select TOP 10 * from Book where Genre IN ('Fiction', 'Non-fiction') AND Avilability = 'TRUE' ORDER BY Price DESC;
+
+select * from loan where (year (Loan_date) >= 2023 AND year (Loan_date) < 2024) AND Return_date IS NULL ORDER BY Loan_date ASC;
