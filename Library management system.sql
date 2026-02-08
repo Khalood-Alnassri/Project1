@@ -102,13 +102,15 @@ alter table loan
 alter table Member
     alter  COLUMN Email nvarchar (255)
 
+Delete from Book
+
+--use SELECT to Retrieving All Data
+
 select * from Library
 
 select * from Staff
 
 select * from Book
-
-Delete from Book
 
 select * from Member
 
@@ -149,7 +151,7 @@ insert into Staff (Fname, Lname, Position, Concat_num, Lib_id)
 -- data for book table
 
 insert into Book (ISBN, Title, Genre, Price, Avilability, Self_location, Lib_id, mem_id )
-          values ('2256', 'The Odyssey', 'Reference', 45.00, 'True', 'A1', 4, 2),
+          values ('2256', 'The Odyssey', 'Reference', 45.00, 'True', 'A1', 4, 12),
                  ('5413', 'Mockingbird', 'Fiction', 39.99, 'True', 'A2', 5, 3),
                  ('0984', 'Gatsby', 'Non-fiction', 29.50, 'False', 'A3', 6, 11),
                  ('3568', '1984', 'Non-fiction', 34.00, 'True', 'B1', 7, 8),
@@ -177,24 +179,24 @@ insert into Member (Fname, Lname, Phone_num, Email, mem_ship_start, lib_ID)
 -- data for review 
 
 insert into Reviw (Rating, Review_date, Comment,  bookID, memID)
-           values (5, '2023-01-10', 'Excellent book, very informative and enjoyable.', 24, 4),
-                  (4, '2023-02-15', 'Good content but some chapters were a bit long.', 25, 8),
+           values (5, '2023-01-10', 'Excellent book, very informative and enjoyable.', 15, 4),
+                  (4, '2023-02-15', 'Good content but some chapters were a bit long.', 16, 8),
                   (3, '2023-03-05', 'Average book, useful but not outstanding.', 17, 9),
-                  (5, '2023-04-20', 'Amazing experience, highly recommended!', 26, 5),
+                  (5, '2023-04-20', 'Amazing experience, highly recommended!', 14, 5),
                   (2, '2023-05-18', 'Not what I expected, writing style was weak.', 22, 3),
                   (4, '2023-06-22', 'Well written and easy to understand.', 21, 6),
                   (1, '2023-07-01', 'Poor quality and disappointing overall.', 19, 7),
-                  (5, '2023-08-14', 'One of the best books I have read this year.', 18, 2),
+                  (5, '2023-08-14', 'One of the best books I have read this year.', 18, 12),
                   (3, '2023-09-30', 'Decent book, but could be improved.', 20, 10),
                   (4, '2023-10-12', 'Interesting ideas and clear explanations.', 23, 11);
 
 -- data fot loan
 
 insert into loan ( Loan_date, Due_date, Status, Return_date, memb_id, book_id)
-          values ('2023-01-05', '2023-01-19', 'Returned', '2023-01-17', 9, 25),
-                 ('2023-01-20', '2023-02-03', 'Returned', '2023-02-02', 2, 18),
-                 ('2023-02-10', '2023-02-24', 'Overdue', NULL, 7, 24),
-                 ('2023-03-01', '2023-03-15', 'Returned', '2023-03-14', 6, 26),
+          values ('2023-01-05', '2023-01-19', 'Returned', '2023-01-17', 9, 15),
+                 ('2023-01-20', '2023-02-03', 'Returned', '2023-02-02', 12, 18),
+                 ('2023-02-10', '2023-02-24', 'Overdue', NULL, 7, 16),
+                 ('2023-03-01', '2023-03-15', 'Returned', '2023-03-14', 6, 14),
                  ('2023-03-20', '2023-04-03', 'Returned', '2023-04-01', 4, 22),
                  ('2023-04-10', '2023-04-24', 'Overdue', NULL, 8, 20),
                  ('2023-05-05', '2023-05-19', 'Returned', '2023-05-18', 5, 19),
@@ -215,3 +217,64 @@ insert into payment (Amount, Payment_date, Method, loan_date)
                     (55.00, '2023-06-14', 'Debit Card', '2023-06-20'),
                     (35.90, '2023-07-02', 'Cash', '2023-03-20'),
                     (70.00, '2023-07-25', 'Credit Card', '2023-01-20');
+
+
+--use SELECT to Selecting Specific Columns
+
+select Lib_name, Location from Library;
+
+select Title, Genre, Price from Book;
+
+select Fname, Lname, Email from Member;
+
+select ID, Fname, Lname, Position from Staff;
+
+--Using WHERE Clause - Simple Conditions
+
+select * from Book where Genre = 'Fiction';
+
+select * from Library where Location = 'New York';
+
+select * from Book where Avilability = 'True';
+
+select * from Staff where Position = 'Librarian';
+
+select * from loan where Status = 'Overdue';
+
+--Comparison Operators
+
+select * from Book where Price > 20;
+
+select * from Library where year (Stablish_year) < 2000;
+
+select * from payment where Amount >= 10;
+
+select * from Book where Price <= 15; 
+
+select * from Reviw where Rating != 5;
+
+--Logical Operators (AND, OR, NOT)
+
+select * from Book where Genre = 'Fiction' AND Avilability = 'True';
+
+select * from Book where Genre = 'Fiction' OR Genre = 'Children';
+
+select * from Library where YEAR (Stablish_year) > 2010 AND Location = 'California';
+
+select * from Book where Price >= 10 AND Price <= 30;
+
+select * from loan where Status <> 'Returned';
+
+--ORDER BY Clause
+
+select * from Book ORDER BY Title ASC;
+
+select * from Book ORDER BY Price DESC;
+
+select * from Member ORDER BY mem_ship_start DESC;
+
+select * from Library ORDER BY Stablish_year ASC;
+
+select * from Reviw ORDER BY Rating DESC;
+
+select * from Reviw ORDER BY Review_date ASC;
