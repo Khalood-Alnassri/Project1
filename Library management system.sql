@@ -345,3 +345,7 @@ select * from Member where ( year (mem_ship_start) >= 2019 AND year (mem_ship_st
 select TOP 10 * from Book where Genre IN ('Fiction', 'Non-fiction') AND Avilability = 'TRUE' ORDER BY Price DESC;
 
 select * from loan where (year (Loan_date) >= 2023 AND year (Loan_date) < 2024) AND Return_date IS NULL ORDER BY Loan_date ASC;
+
+select Fname, Lib_name from Staff, Library L where L.ID = Lib_id AND year (L.Stablish_year) < 2010 AND (Position = 'Librarian' OR Position = 'Manager');
+
+select Title from Book B LEFT OUTER JOIN Reviw ON B.ID = bookID where Review_date = '2023-10-12';
