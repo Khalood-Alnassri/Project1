@@ -284,3 +284,15 @@ select TOP 10 * from Member ORDER BY mem_ship_start ASC;
 select TOP 3 * from Library ORDER BY Stablish_year ASC;
 
 select TOP 5 * from Reviw ORDER BY Rating DESC;
+
+--LIKE Operator for Pattern Matching
+
+select * from Book where Title LIKE 'The %';
+
+select * from Member where Email LIKE '%email.com%';
+
+select * from Library where Lib_name like '%Library';
+
+select * from Book where Title LIKE '%Adventure%';
+
+select * from Staff where Fname LIKE 'O%';
