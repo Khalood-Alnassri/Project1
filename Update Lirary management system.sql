@@ -226,3 +226,15 @@ select * from Book where Avilability = 'True';
 select * from Staff where Position = 'Librarian';
 
 select * from loan where Status = 'Overdue';
+
+--Comparison Operators
+
+select * from Book where Price > 20;
+
+select * from Library where year (Stablish_year) < 2000;
+
+select * from payment where Amount >= 10;
+
+select * from Book where Price >= 15; 
+
+select * from Reviw where Rating != 5;
