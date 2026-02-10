@@ -250,3 +250,18 @@ select * from Library where YEAR (Stablish_year) < 2016 AND Location = 'Dammam';
 select * from Book where Price >= 10 AND Price <= 30;
 
 select * from loan where Status <> 'Returned';
+
+--ORDER BY Clause
+
+select * from Book ORDER BY Title ASC;
+
+select * from Book ORDER BY Price DESC;
+
+select * from Member ORDER BY mem_ship_start DESC;
+
+select * from Library ORDER BY Stablish_year ASC;
+
+select * from Reviw ORDER BY Rating DESC;
+
+select * from Reviw ORDER BY Review_date ASC;
+
