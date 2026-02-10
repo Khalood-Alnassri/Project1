@@ -23,8 +23,11 @@ Lname nvarchar (20),
 Position nvarchar (20),
 Concat_num int,
 Lib_id int,
-foreign key (Lib_id) references Library (ID)
+foreign key (Lib_id) references Library (ID) ON DELETE CASCADE ON UPDATE CASCADE
 )
+
+drop table Staff
+    
 
 --Book table
 
@@ -39,6 +42,8 @@ Self_location nvarchar (20) not null,
 Avilability nvarchar (10) DEFAULT 'TRUE'
 )
 
+drop table Book
+
 --Member table
 
 create table Member
@@ -52,6 +57,8 @@ mem_ship_start date,
 lib_ID int,
 foreign key (lib_ID) references Library (ID)
 )
+ 
+drop table Member
 --Review table
 
 create table Reviw 
@@ -59,7 +66,13 @@ create table Reviw
 Review_date date primary key not null,
 Rating int CONSTRAINT ck_review_rating check (Rating between 1 and 5) not null,
 Comment nvarchar (200) DEFAULT 'No comments'
+bookID int,
+foreign key (bookID) references Book (ID) ON DELETE CASCADE ON UPDATE CASCADE,
+memID int,
+foreign key references Member (ID) ON DELETE CASCADE ON UPDATE CASCADE
 )
+
+drop table Reviw
 
 create table loan
 (
@@ -68,10 +81,12 @@ Due_date date not null,
 Status nvarchar (10) CONSTRAINT ck_loan_status check (Status IN ('Issued', 'Returned', 'Overdue')) DEFAULT 'Issued' not null,
 Return_date date,
 memb_id int,
-foreign key (memb_id) references Member (ID),
+foreign key (memb_id) references Member (ID) ON DELETE CASCADE ON UPDATE CASCADE,
 book_id int, 
-foreign key (book_id) references Book (ID)
+foreign key (book_id) references Book (ID) ON DELETE CASCADE ON UPDATE CASCADE
 )
+
+drop table loan
 
 create table payment
 (
@@ -82,6 +97,8 @@ loan_date date,
 foreign key (loan_date) references loan (Loan_date)
 )
 
+drop table payment
+
 
 --add foriegn keys in book table
 alter table Book
@@ -90,11 +107,6 @@ alter table Book
 alter table Book 
     add mem_id int foreign key references Member (ID)
 
-alter table Reviw 
-    add memID int foreign key references Member (ID)
-
-alter table Reviw 
-    add bookID int foreign key references Book (ID)
 
 alter table loan
     add CONSTRAINT ck_loan_return check (Return_date >= Loan_date)
@@ -374,3 +386,14 @@ select Title, Genre, Lib_name, Location, ConcatNo from Library L, Book where L.I
 
 select Fname, Lname, Email ,Title, Genre, Loan_date, Due_date, Return_date, Status from Member M JOIN loan L ON M.ID = L.memb_id JOIN Book B ON L.book_id = B.ID; 
 
+--LEFT JOIN
+
+select Title, Rating, Comment from Book B LEFT OUTER JOIN Reviw R ON B.ID = R.bookID;
+
+select Fname, Lname, Email, Loan_date, Due_date, Status from Member M LEFT OUTER JOIN loan L ON M.ID = L.memb_id; 
+
+select L.Loan_date, Status, Payment_date, Amount from loan L LEFT OUTER JOIN payment P ON L.Loan_date = P.loan_date;
+
+select Lib_name, Location, Fname, Lname, Position from Library L LEFT OUTER JOIN Staff S ON L.ID = S.Lib_id;
+
+select 
