@@ -265,3 +265,22 @@ select * from Reviw ORDER BY Rating DESC;
 
 select * from Reviw ORDER BY Review_date ASC;
 
+--DISTINCT Keyword
+
+select DISTINCT Genre from Book ORDER BY Genre ASC; 
+
+select DISTINCT Location from Library ORDER BY Location ASC; 
+
+select DISTINCT Position from Staff ORDER BY Position ASC; 
+
+select DISTINCT Status from loan ORDER BY Status ASC; 
+
+--TOP/LIMIT Clause
+
+select TOP 5 * from Book ORDER BY Price DESC;
+
+select TOP 10 * from Member ORDER BY mem_ship_start ASC;
+
+select TOP 3 * from Library ORDER BY Stablish_year ASC;
+
+select TOP 5 * from Reviw ORDER BY Rating DESC;
