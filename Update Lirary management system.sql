@@ -238,3 +238,15 @@ select * from payment where Amount >= 10;
 select * from Book where Price >= 15; 
 
 select * from Reviw where Rating != 5;
+
+--Logical Operators (AND, OR, NOT)
+
+select * from Book where Genre = 'Fiction' AND Avilability = 'True';
+
+select * from Book where Genre = 'Fiction' OR Genre = 'Children';
+
+select * from Library where YEAR (Stablish_year) < 2016 AND Location = 'Dammam';
+
+select * from Book where Price >= 10 AND Price <= 30;
+
+select * from loan where Status <> 'Returned';
