@@ -204,3 +204,25 @@ insert into payment (Amount, Payment_date, Method, loanID)
                     (14.00, '2023-04-18', 'Online',      6),
                     (7.75,  '2023-05-05', 'Debit Card',  2),
                     (18.30, '2023-05-22', 'Credit Card', 8);
+
+--use SELECT to Selecting Specific Columns
+
+select Lib_name, Location from Library;
+
+select Title, Genre, Price from Book;
+
+select Fname, Lname, Email from Member;
+
+select ID, Fname, Lname, Position from Staff;
+
+--Using WHERE Clause - Simple Conditions
+
+select * from Book where Genre = 'Fiction';
+
+select * from Library where Location = 'New York';
+
+select * from Book where Avilability = 'True';
+
+select * from Staff where Position = 'Librarian';
+
+select * from loan where Status = 'Overdue';
