@@ -296,3 +296,11 @@ select * from Library where Lib_name like '%Library';
 select * from Book where Title LIKE '%Adventure%';
 
 select * from Staff where Fname LIKE 'O%';
+
+--Working with NULL Values
+
+select * from loan where Return_date IS NULL;
+
+select * from loan where Return_date IS NOT NULL;
+
+select * from Reviw where Comment IS NULL OR Comment = 'No comments';
