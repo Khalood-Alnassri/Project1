@@ -350,3 +350,19 @@ select Full_name, Title, Rating, Comment from Member M JOIN Reviw R ON M.ID = R.
 select Title, Genre, Lib_name, Location, ConcatNo from Library L, Book where L.ID = Lib_id;
 
 select Full_name, Email ,Title, Genre, Loan_date, Due_date, Return_date, Status from Member M JOIN loan L ON M.ID = L.memb_id JOIN Book B ON L.book_id = B.ID;
+
+--LEFT JOIN
+
+select Title, Rating, Comment from Book B LEFT OUTER JOIN Reviw R ON B.ID = R.bookID;
+
+select Full_name, Email, Loan_date, Due_date, Status from Member M LEFT OUTER JOIN loan L ON M.ID = L.memb_id; 
+
+select L.Loan_date, Status, Payment_date, Amount from loan L LEFT OUTER JOIN payment P ON L.Loan_ID = P.loanID;
+
+select Lib_name, Location, Fname, Position from Library L LEFT OUTER JOIN Staff S ON L.ID = S.Lib_id;
+
+select  Full_name, Email from Member M LEFT OUTER JOIN loan L ON M.ID = L.memb_id where L.Loan_ID IS NULL;
+
+select Title, Genre, Price from Book B LEFT OUTER JOIN Reviw R ON  B.ID = R.memID where R.Rev_ID IS NULL;
+
+select Title, Full_name, Rating, Comment from Book B JOIN Reviw R ON B.ID = R.bookID JOIN Member M ON R.memID = M.ID;
