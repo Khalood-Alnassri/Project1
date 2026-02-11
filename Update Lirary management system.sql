@@ -211,9 +211,9 @@ select Lib_name, Location from Library;
 
 select Title, Genre, Price from Book;
 
-select Fname, Lname, Email from Member;
+select Full_name, Email from Member;
 
-select ID, Fname, Lname, Position from Staff;
+select ID, Fname, Position from Staff;
 
 --Using WHERE Clause - Simple Conditions
 
@@ -304,3 +304,15 @@ select * from loan where Return_date IS NULL;
 select * from loan where Return_date IS NOT NULL;
 
 select * from Reviw where Comment IS NULL OR Comment = 'No comments';
+
+--Complex Combined Queries
+
+select * from Book where Genre = 'Fiction' AND Avilability = 'TRUE' AND Price < 100 ORDER BY Price ASC;
+
+select TOP 5 * from loan where Status = 'Overdue' ORDER BY Due_date DESC;
+
+select * from Library where ( Location = 'Jeddah' OR Location = ' Riyadh') AND year (Stablish_year) < 2005 ORDER BY Lib_name;
+
+select * from Book where (Genre = 'Fiction' OR Genre = 'Children') AND Price between 10 AND 30 AND Avilability = 'TRUE';
+
+select * from Member where ( year (mem_ship_start) >= 2023 AND year (mem_ship_start) < 2024) AND Email LIKE '%@gmail.com' ORDER BY mem_ship_start ASC;
