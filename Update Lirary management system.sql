@@ -378,3 +378,11 @@ select Lib_name, Title, Genre from Book B RIGHT OUTER JOIN Library L ON L.ID = B
 select Fname, Lib_name from Staff S RIGHT OUTER JOIN Library L ON L.ID = S.Lib_id;
 
 select Fname, Lib_name from Staff S LEFT OUTER JOIN Library L ON L.ID = S.Lib_id;
+
+--FULL OUTER JOIN
+
+select Title, Rating, Comment from Book B FULL OUTER JOIN Reviw R ON B.ID = R.bookID;
+
+select Loan_ID, L.Loan_date, Payment_date, Amount from loan L FULL OUTER JOIN payment P ON L.Loan_ID = P.loanID;
+
+select Full_name, Email, Phone_num, mem_ship_start, Title, B.Genre, B.ISBN, B.Price, B.Self_location, B.Avilability from Member M FULL OUTER JOIN loan L ON M.ID = L.memb_id FULL OUTER JOIN Book B ON  L.book_id = B.ID;
