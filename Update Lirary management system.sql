@@ -326,3 +326,17 @@ select * from loan where (year (Loan_date) >= 2023 AND year (Loan_date) < 2024) 
 select Fname, Lib_name from Staff, Library L where L.ID = Lib_id AND year (L.Stablish_year) < 2010 AND (Position = 'Librarian' OR Position = 'Assistant');
 
 select Title from Book B LEFT OUTER JOIN Reviw ON B.ID = bookID where Review_date = '2023-04-25';
+
+--Two-Table INNER JOINs
+
+select ID, Title, Loan_date, Due_date from loan, Book B where B.ID = book_id;
+
+select Fname, Position, Lib_name,Location from Staff, Library L where L.ID = Lib_id;
+
+select Title, Genre, Price, Lib_name, Location from Book, Library L where L.ID = Lib_id;
+
+select Full_name, Rating, Comment, Review_date from Reviw, Member M where M.ID = memID;
+
+select Title, Rating, Comment, Review_date from Reviw, Book B where B.ID = bookID;
+
+select Payment_date, Amount, Method, Status from payment P, loan L where L.Loan_ID = P.loanID;
