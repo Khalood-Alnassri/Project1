@@ -340,3 +340,13 @@ select Full_name, Rating, Comment, Review_date from Reviw, Member M where M.ID =
 select Title, Rating, Comment, Review_date from Reviw, Book B where B.ID = bookID;
 
 select Payment_date, Amount, Method, Status from payment P, loan L where L.Loan_ID = P.loanID;
+
+--Three-Table INNER JOINs
+
+select Full_name, Title, Loan_date, Due_date, Status from Member M JOIN loan L ON M.ID = L.memb_id JOIN Book B ON L.book_id = B.ID; 
+
+select Full_name, Title, Rating, Comment from Member M JOIN Reviw R ON M.ID = R.memID JOIN Book B ON R.bookID = B.ID;
+
+select Title, Genre, Lib_name, Location, ConcatNo from Library L, Book where L.ID = Lib_id;
+
+select Full_name, Email ,Title, Genre, Loan_date, Due_date, Return_date, Status from Member M JOIN loan L ON M.ID = L.memb_id JOIN Book B ON L.book_id = B.ID;
