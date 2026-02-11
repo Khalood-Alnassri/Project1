@@ -366,3 +366,15 @@ select  Full_name, Email from Member M LEFT OUTER JOIN loan L ON M.ID = L.memb_i
 select Title, Genre, Price from Book B LEFT OUTER JOIN Reviw R ON  B.ID = R.memID where R.Rev_ID IS NULL;
 
 select Title, Full_name, Rating, Comment from Book B JOIN Reviw R ON B.ID = R.bookID JOIN Member M ON R.memID = M.ID;
+
+--RIGHT JOIN
+
+select Title, Rating, Comment from Reviw R RIGHT OUTER JOIN Book B ON B.ID = R.bookID;
+
+select M.ID, Full_name, Loan_date, Status from loan L RIGHT OUTER JOIN Member M ON M.ID = L.book_id;
+
+select Lib_name, Title, Genre from Book B RIGHT OUTER JOIN Library L ON L.ID = B.Lib_id;
+
+select Fname, Lib_name from Staff S RIGHT OUTER JOIN Library L ON L.ID = S.Lib_id;
+
+select Fname, Lib_name from Staff S LEFT OUTER JOIN Library L ON L.ID = S.Lib_id;
