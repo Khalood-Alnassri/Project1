@@ -426,3 +426,43 @@ select SUM (Amount) AS total_amount from payment;
 --Count how many loans have already been returned (meaning ReturnDate is NOT NULL)
 
 select COUNT (*) AS loan_return from loan where Return_date is not NULL;
+
+--Count how many books belong to each Genre
+
+select COUNT (*) AS total_book_genre from Book GROUP BY Genre;
+
+--Count how many staff members work in each Library. Group by LibraryID.
+
+select COUNT (*) AS staff_members from Staff GROUP BY Lib_id;
+
+--Count how many loans exist for each loan Status (Issued, Returned, Overdue)
+
+select COUNT (*) AS loan_exist from loan GROUP BY Status;
+
+--Calculate the average book price for each Genre.
+
+select AVG (Price) AS avg_price from Book GROUP BY Genre;
+
+--Find the total price (SUM) of all books in each Genre.
+
+select SUM (Price) AS total_price from Book GROUP BY Genre;
+
+--Find the most expensive book price (MAX) within each Genre.
+
+select MAX (Price) AS expensive_book from Book GROUP BY Genre;
+
+--Count how many reviews each rating value has received.
+
+select COUNT (*) AS Review from Reviw GROUP BY Rating;
+
+--Count how many books each Library owns. Group by LibraryID.
+
+select COUNT (*) AS Library_owns from Book GROUP BY Lib_id;
+
+--Count how many loans each Member has made. Group by MemberID.
+
+select COUNT (*) AS Member_loan from loan GROUP BY memb_id;
+
+--Find the cheapest book (MIN Price) in each Genre.
+
+select MIN (Price) AS cheapest_book from Book GROUP BY Genre;
