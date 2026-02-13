@@ -526,3 +526,23 @@ select memID from Reviw GROUP BY memID HAVING COUNT (*) >= 1;
 --Find libraries (by LibraryID) that own MORE THAN 1 books.
 
 select COUNT (*) AS Library_own from Book GROUP BY Lib_id HAVING COUNT (*) >= 1;
+
+--Count available books per genre (available means IsAvailable = 1). Show only genres that have more than 1 available book
+
+select Genre, COUNT (Avilability) AS available_book from Book where Avilability = 'TRUE' GROUP BY Genre HAVING COUNT (Avilability) > 1;
+
+--Among Fiction and Children books only, show genres where the average price is above 15
+
+select Genre, AVG (Price) AS avg_price from Book B where Genre IN ('Fiction', 'Children') GROUP BY Genre HAVING AVG (Price) > 15;
+
+--Among Overdue and Issued loans only, count per member and show members with more than 1 active loan
+
+select COUNT (memb_id) AS member_loan from loan where Status IN ('Overdue', 'Issued') GROUP BY memb_id HAVING COUNT (memb_id) >= 1;
+
+--Look only at reviews with Rating >= 3. Group by book and show books that have at least 2 good reviews
+
+select COUNT (bookID) AS book_review from Reviw where Rating >= 3 GROUP BY bookID HAVING COUNT (*) >= 1;
+
+--Find genres that have more than 1 book priced below 20.
+
+select Genre from Book where Price < 20 GROUP BY Genre HAVING COUNT (*) > 1;
