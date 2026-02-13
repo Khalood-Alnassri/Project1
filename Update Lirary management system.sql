@@ -469,7 +469,7 @@ select MIN (Price) AS cheapest_book from Book GROUP BY Genre;
 
 --Count books per Genre, ordered from the genre with the most books down to the fewest
 
-select COUNT (*) AS book from Book Book GROUP BY Genre ORDER BY Genre DESC;
+select COUNT (*) AS book from Book GROUP BY Genre ORDER BY Genre DESC;
 
 --Show the average price per Genre, ordered from cheapest average to most expensive.
 
@@ -485,4 +485,44 @@ select SUM (Amount) AS amount_collect from payment GROUP BY Method ORDER BY amou
 
 --Count how many reviews each book has received (group by BookID), ordered so the most-reviewed book appears first
 
-select COUNT (*) book_reviews from Reviw GROUP BY bookID ORDER BY book_reviews DESC;
+select COUNT (*) AS book_reviews from Reviw GROUP BY bookID ORDER BY book_reviews DESC;
+
+--Show only the genres that have MORE THAN OR = 3 books.
+
+select COUNT (*) AS total_book from Book GROUP BY Genre HAVING COUNT(*) >= 3;
+
+--Show only the libraries that have AT LEAST 1 staff members.
+
+select COUNT (*) AS staff_member from Staff GROUP BY Lib_id HAVING COUNT (*) >=1;
+
+--Show only the members (by MemberID) who have borrowed MORE THAN OR = 1 book
+
+select COUNT (*) AS member_borrow from Book GROUP BY mem_id HAVING COUNT (*) >=1;
+
+--Show only the genres where the average book price is MORE THAN 30.
+
+select Genre, AVG (Price) AS avg_price from Book GROUP BY Genre HAVING AVG (Price) > 30;
+
+--Find books (by BookID) that have received AT LEAST 1 reviews.
+
+select bookID AS book_reviews from Reviw GROUP BY bookID HAVING COUNT (*) >= 1;
+
+--Show genres where the total sum of all book prices is MORE THAN 50.
+
+select Genre, SUM (Price) AS total_price from Book GROUP BY Genre HAVING SUM (Price) > 50; 
+
+--Find payment methods where the total collected amount is MORE THAN 15.
+
+select Method, SUM (Amount) AS total_amount from payment GROUP BY Method HAVING SUM (Amount) > 15;
+
+--Show loan statuses that appear MORE THAN 3 times in the Loan table.
+
+select Status from loan GROUP BY Status HAVING COUNT (*) > 3;
+
+--Show members (by MemberID) who have written AT LEAST 2 reviews.
+
+select memID from Reviw GROUP BY memID HAVING COUNT (*) >= 1;
+
+--Find libraries (by LibraryID) that own MORE THAN 1 books.
+
+select COUNT (*) AS Library_own from Book GROUP BY Lib_id HAVING COUNT (*) >= 1;
