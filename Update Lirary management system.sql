@@ -386,3 +386,43 @@ select Title, Rating, Comment from Book B FULL OUTER JOIN Reviw R ON B.ID = R.bo
 select Loan_ID, L.Loan_date, Payment_date, Amount from loan L FULL OUTER JOIN payment P ON L.Loan_ID = P.loanID;
 
 select Full_name, Email, Phone_num, mem_ship_start, Title, B.Genre, B.ISBN, B.Price, B.Self_location, B.Avilability from Member M FULL OUTER JOIN loan L ON M.ID = L.memb_id FULL OUTER JOIN Book B ON  L.book_id = B.ID;
+
+--Count the total number of books in the Book table
+
+select COUNT (*) AS Book_num from Book;
+
+--Count how many members are registered in the system
+
+select Max (ID) AS Total_Member from Member;
+
+--Find the total sum of all book prices combined
+
+select SUM (Price) AS Total_price from Book;
+
+--Calculate the average price of all books.
+
+select AVG (Price) AS Avg_Price from Book;
+
+--Find the cheapest book price AND the most expensive book price — both in the same single query
+
+select MIN (Price) AS cheapest_book, MAX (Price) AS expensive_book from Book;
+
+--Count how many loans currently have Status = 'Overdue'
+
+select COUNT (*) AS Overdue_loans from loan where Status = 'Overdue';
+
+--Find the highest rating ever given in the Review table.
+
+select MAX (Rating) AS Highest_rating from Reviw;
+
+--Find the lowest rating ever given in the Review table.
+
+select MIN (Rating) AS Lowest_rating from Reviw;
+
+--Calculate the total amount of all fines collected — the sum of every payment ever made
+
+select SUM (Amount) AS total_amount from payment;
+
+--Count how many loans have already been returned (meaning ReturnDate is NOT NULL)
+
+select COUNT (*) AS loan_return from loan where Return_date is not NULL;
