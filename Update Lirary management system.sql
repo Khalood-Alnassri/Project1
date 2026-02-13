@@ -466,3 +466,23 @@ select COUNT (*) AS Member_loan from loan GROUP BY memb_id;
 --Find the cheapest book (MIN Price) in each Genre.
 
 select MIN (Price) AS cheapest_book from Book GROUP BY Genre;
+
+--Count books per Genre, ordered from the genre with the most books down to the fewest
+
+select COUNT (*) AS book from Book Book GROUP BY Genre ORDER BY Genre DESC;
+
+--Show the average price per Genre, ordered from cheapest average to most expensive.
+
+select AVG (Price) AS avg_price from Book GROUP BY Genre ORDER BY avg_price ASC;
+
+--Count loans per Status and order the results alphabetically by Status name.
+
+select COUNT (*) AS loan_status from loan GROUP BY Status ORDER BY Status ASC;
+
+--Show the total payment amount collected per PaymentMethod, ordered from the highest total to the lowest
+
+select SUM (Amount) AS amount_collect from payment GROUP BY Method ORDER BY amount_collect DESC;
+
+--Count how many reviews each book has received (group by BookID), ordered so the most-reviewed book appears first
+
+select COUNT (*) book_reviews from Reviw GROUP BY bookID ORDER BY book_reviews DESC;
