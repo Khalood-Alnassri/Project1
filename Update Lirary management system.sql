@@ -546,3 +546,35 @@ select COUNT (bookID) AS book_review from Reviw where Rating >= 3 GROUP BY bookI
 --Find genres that have more than 1 book priced below 20.
 
 select Genre from Book where Price < 20 GROUP BY Genre HAVING COUNT (*) > 1;
+
+--Show each library name alongside the number of books it owns.
+
+select L.Lib_name, COUNT (B.ID) AS total_book from Library L LEFT JOIN Book B ON L.ID = B.Lib_id GROUP BY L.ID, L.Lib_name;
+
+--Show each member's full name alongside their total number of loans.
+
+select M.Full_name, COUNT (ID) AS total_loan from Member M LEFT JOIN loan L ON M.ID = L.memb_id GROUP BY M.Full_name;
+
+--Show each book's title alongside the number of times it has been borrowed.
+
+select B.Title, COUNT (ID) AS total_borrow from Book B LEFT JOIN loan L ON B.ID = L.book_id GROUP BY B.Title;
+
+--Show each book's title alongside its average review rating.
+
+select B.Title, AVG (Rating) AS avg_rating from Book B LEFT JOIN ReviW R ON B.ID = R.bookID GROUP BY B.Title; 
+
+--Show each library name alongside the total value (SUM of Price) of all the books it owns
+
+select L.Lib_name, SUM (Price) AS book_price  from Library L LEFT JOIN Book B ON L.ID = B.Lib_id GROUP BY L.Lib_name;
+
+--Show each library name alongside the number of staff who work there.
+
+select L.Lib_name, COUNT(S.ID) AS staff_num from Library L LEFT JOIN Staff S ON  L.ID = S.Lib_id GROUP BY L.Lib_name;
+
+--Show each member's full name alongside the total fine amount they have paid
+
+select M.Full_name, SUM (Amount) AS total_amount from Member M JOIN loan L ON M.ID = L.memb_id JOIN payment P ON P.loanID = L.Loan_ID GROUP BY M.Full_name ;
+
+--Show each genre and the number of DISTINCT members who have borrowed books in that genre
+
+select Genre, COUNT(DISTINCT L.memb_id) AS Distinct_Members from Book B LEFT JOIN loan L ON B.ID = L.book_id GROUP BY Genre;
