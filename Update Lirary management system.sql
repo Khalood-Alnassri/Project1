@@ -578,3 +578,11 @@ select M.Full_name, SUM (Amount) AS total_amount from Member M JOIN loan L ON M.
 --Show each genre and the number of DISTINCT members who have borrowed books in that genre
 
 select Genre, COUNT(DISTINCT L.memb_id) AS Distinct_Members from Book B LEFT JOIN loan L ON B.ID = L.book_id GROUP BY Genre;
+
+--Show each book's title, how many times it was borrowed, and its average rating — all in one query.
+
+select B.Title, COUNT (ID) AS total_borrow , AVG (Rating) AS avg_rating from Book B LEFT JOIN loan L ON B.ID = L.book_id LEFT JOIN ReviW R ON B.ID = R.bookID GROUP BY B.Title;
+
+--Show each genre with three pieces of information: total number of books, number of available books, and average price
+
+select B.Genre, COUNT (*) AS total_book , SUM (CASE WHEN Avilability = 'TRUE' THEN 1 ELSE 0 END) AS available_book, AVG (B.Price) AS avg_price from Book B GROUP BY Genre;
