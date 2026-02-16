@@ -606,3 +606,23 @@ select Genre from Book B LEFT JOIN loan L ON B.ID = L.book_id GROUP BY Genre HAV
 --Show only the libraries where the total fines collected from their books are MORE THAN 10
 
 select L.Lib_name, SUM (P.Amount) AS total_fines from Library L JOIN Book B ON L.ID = B.Lib_id JOIN loan ON loan.book_id = B.ID JOIN payment P ON P.loanID = loan.Loan_ID GROUP BY L.Lib_name HAVING SUM (P.Amount) > 10;
+
+--Count available books (WHERE IsAvailable = 1) per genre. Show only genres with more than 1 available book. Order the results from most available books to fewest
+
+select Genre, COUNT (Avilability) AS avilable_books from Book where Avilability = 'TRUE' GROUP BY Genre HAVING COUNT (Avilability) > 1 ORDER BY COUNT (Avilability) DESC;
+
+--For each library, show the library name and the total number of loans ever made from its books. Show only libraries that have had more than 2 loans. Order by loan count from highest to lowest
+
+select L.Lib_name, COUNT (loan_ID) AS total_loans from Library L JOIN Book B ON L.ID = B.Lib_id JOIN loan ON loan.book_id = B.ID GROUP BY L.Lib_name HAVING SUM (loan_ID) > 2 ORDER BY COUNT (loan_ID) DESC;
+
+--Show each member's name and how many overdue loans they have (Status = 'Overdue'). Show only members who have at least 1 overdue loan. Order alphabetically by name
+
+select M.Full_name, COUNT (L.Status) AS overdue_loan from Member M LEFT JOIN loan L ON M.ID = L.memb_id where L.Status = 'Overdue' GROUP BY M.Full_name HAVING COUNT (L.Status) >= 1 ORDER BY M.Full_name ASC;
+
+--For each book, show the title, total number of borrows, and average review rating. Show only books that have been borrowed at least once AND have an average rating above 3. Order by average rating from highest to lowest.
+
+select B.Title,  COUNT (loan_ID) AS total_borrow, AVG(Rating) AS avg_review_rating from Book B JOIN loan L ON L.book_id = B.ID LEFT JOIN ReviW R ON B.ID = R.bookID GROUP BY B.Title HAVING COUNT (loan_ID) >= 1 AND AVG(Rating) > 3 ORDER BY AVG(Rating) ASC;
+
+--For each genre, show the total number of books, the average price, and the cheapest price. Show only genres where the average price is between 15 and 50. Order by average price from lowest to highest
+
+select Genre, COUNT (*) AS total_book, AVG (Price) AS avg_price, MIN (Price) AS cheapest_price from Book GROUP BY Genre HAVING AVG (Price) BETWEEN 15 AND 50 ORDER BY AVG (Price) ASC;
