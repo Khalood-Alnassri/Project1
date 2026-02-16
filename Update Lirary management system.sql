@@ -586,3 +586,23 @@ select B.Title, COUNT (ID) AS total_borrow , AVG (Rating) AS avg_rating from Boo
 --Show each genre with three pieces of information: total number of books, number of available books, and average price
 
 select B.Genre, COUNT (*) AS total_book , SUM (CASE WHEN Avilability = 'TRUE' THEN 1 ELSE 0 END) AS available_book, AVG (B.Price) AS avg_price from Book B GROUP BY Genre;
+
+--Show only the library names that own less THAN 2 books.
+
+select Lib_name from Library L LEFT JOIN Book B ON L.ID = B.Lib_id GROUP BY Lib_name HAVING COUNT (B.ID) < 2;
+
+--Show only the members' full names who have borrowed MORE THAN  or = 1 book
+
+select M.Full_name from Member M LEFT JOIN loan L ON M.ID = L.memb_id GROUP BY M.Full_name HAVING COUNT (*) >= 1;
+
+--Show only the book titles that have an average rating ABOVE 4.
+
+select B.Title from Book B LEFT JOIN ReviW R ON B.ID = R.bookID GROUP BY B.Title HAVING AVG (Rating) > 4;
+
+--Show only the genres where more than 3 loans have been made in total.
+
+select Genre from Book B LEFT JOIN loan L ON B.ID = L.book_id GROUP BY Genre HAVING COUNT (ID) < 3;
+
+--Show only the libraries where the total fines collected from their books are MORE THAN 10
+
+select L.Lib_name, SUM (P.Amount) AS total_fines from Library L JOIN Book B ON L.ID = B.Lib_id JOIN loan ON loan.book_id = B.ID JOIN payment P ON P.loanID = loan.Loan_ID GROUP BY L.Lib_name HAVING SUM (P.Amount) > 10;
