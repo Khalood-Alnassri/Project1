@@ -626,3 +626,7 @@ select B.Title,  COUNT (loan_ID) AS total_borrow, AVG(Rating) AS avg_review_rati
 --For each genre, show the total number of books, the average price, and the cheapest price. Show only genres where the average price is between 15 and 50. Order by average price from lowest to highest
 
 select Genre, COUNT (*) AS total_book, AVG (Price) AS avg_price, MIN (Price) AS cheapest_price from Book GROUP BY Genre HAVING AVG (Price) BETWEEN 15 AND 50 ORDER BY AVG (Price) ASC;
+
+--Build a complete library summary report. For each library show: library name, city (Location), total number of books, total number of staff, total number of loans ever made, and total fines collected. Show only libraries that have had at least one loan. Order by total loans from highest to lowest
+
+select L.Lib_name, L.Location, COUNT(DISTINCT B.ID) AS total_book, COUNT (DISTINCT S.ID) AS total_staff, COUNT (DISTINCT loan_ID) AS total_loan, SUM (P.Amount) AS total_fines from Library L LEFT JOIN Book B ON L.ID = B.Lib_id LEFT JOIN Staff S ON L.ID = S.Lib_id LEFT JOIN loan ON loan.book_id = B.ID LEFT JOIN payment P ON P.loanID = loan.Loan_ID GROUP BY L.Lib_name, L.Location HAVING COUNT (DISTINCT loan_ID) >= 1 ORDER BY COUNT (DISTINCT loan_ID) DESC;
